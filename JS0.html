@@ -1,0 +1,98 @@
+<html>
+<head>
+	<style>
+		body{position:relative;}
+		#div1{width:100px; height:100px;border:5px solid #000;}
+		#mask{width:300px; height:200px;border:1px solid #000; position:absolute;left:300px;top:300px;
+			display:none;}
+		#mask div{height:50px;}
+		#red{background:red;border:none;}
+		#yellow{background:yellow;border:none;}
+		#green{background:green;border:none;}
+		#mask input{width:50px;}
+	</style>
+	
+	<script>
+		window.onload = function(){
+			var set = document.getElementById('set');
+			var div1= document.getElementById('div1');
+			var red = document.getElementById('red');
+			var yellow = document.getElementById('yellow');
+			var green = document.getElementById('green');
+			var width200 = document.getElementById('width200');
+			var width300 = document.getElementById('width300');
+			var width400 = document.getElementById('width400');
+			var height200 = document.getElementById('height200');
+			var height300 = document.getElementById('height300');
+			var height400 = document.getElementById('height400');
+			var mask = document.getElementById('mask');
+			var reset = document.getElementById('reset');
+			var ok = document.getElementById('ok');
+			set.onclick = function(){
+				mask.style.display = 'block';
+			}
+			red.onclick = function(){
+				div1.style.background = 'red';
+			}
+			yellow.onclick = function(){
+				div1.style.background = 'yellow';
+			}
+			green.onclick = function(){
+				div1.style.background = 'green';
+			}
+			width200.onclick = function(){
+				div1.style.width = '200px';
+			}
+			width300.onclick = function(){
+				div1.style.width = '300px';
+			}
+			width400.onclick = function(){
+				div1.style.width = '400px';
+			}
+			height200.onclick = function(){
+				div1.style.height = '200px';
+			}
+			height300.onclick = function(){
+				div1.style.height = '300px';
+			}
+			height400.onclick = function(){
+				div1.style.height = '400px';
+			}
+			reset.onclick = function(){
+				div1.style.width = '100px';
+				div1.style.height = '100px';
+				div1.style.background = 'none';
+			}
+			ok.onclick = function(){
+				mask.style.display = 'none';
+			}
+		}
+	</script>
+</head>
+<body>
+	<p>请为下面的div设置样式：<input type="button" value="点击设置样式" id="set"/></p>
+	<div id="div1"></div>
+	<div id="mask">
+		<div>选择背景：
+		<input type="button" value="红" id="red"/>
+		<input type="button" value="黄" id="yellow"/>
+		<input type="button" value="绿" id="green" />
+		</div>
+		<div>选择宽度：
+		<span><input type="button" value="200" id="width200"/></span>
+		<span><input type="button" value="300" id="width300"/></span>
+		<span><input type="button" value="400" id="width400"/></span>
+		</div>		
+		<div>选择高度：
+		<span><input type="button" value="200" id="height200"/></span>
+		<span><input type="button" value="300" id="height300" /></span>
+		<span><input type="button" value="400" id="height400"/></span>
+		</div>
+		<div>
+		<input type="button" value="恢复" id="reset" />
+		<input type="button" value="确定" id="ok" />
+		</div>
+	</div >
+		
+</body>
+</html>
