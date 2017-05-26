@@ -1,0 +1,73 @@
+<html>
+<head>
+<!-- 实现手机模拟发信息的功能。-->
+	<style>
+		p{margin:0;padding:0;}
+		#main{width:448px; height:936px;background:url(images/6.png) no-repeat; 
+			  margin:40px auto 0;position:relative;}
+		#content{width:364px;height:600px;position:absolute;border:1px solid red;
+			  left:40px;top:170px; overflow:scroll;}
+		#img1{position:absolute; bottom:200px;left:45px;border:1px solid #f1f1f1; width:30px;height:30px;} 
+		#text1{position:absolute; bottom:200px;left:85px; width:260px;height:30px;} 
+		#btn1{position:absolute; bottom:200px;right:50px; width:40px;height:30px;} 
+		.right1{text-align:right; background:url(images/7.png) no-repeat right 6px;margin:10px 10px 0 0; }
+		.right2{margin-right:30px; background:green;   }
+		.left1{text-align:left; background:url(images/8.png) no-repeat left 6px;margin:10px 0 0 10px;}
+		.left2{margin-left:30px; background:white;}
+		.right1,.left1{height:30px;}
+		.right2,.left2{ display:inline-block;border:1px solid;  border-radius:4px; line-height:30px; padding:0 4px;}
+	</style>
+</head>
+
+<body>
+	<div id="main">
+		<div id="content"></div>   <!-- 注意：content div 不能将底部按钮等内容包在内，否则会在输入的时候将其内容覆盖-->
+			<img id="img1" src="images/6.png" />
+			<input id="text1" type="text" />
+			<input id="btn1" type="button" value="发送"/>
+	</div>
+	<script>
+		var oText = document.getElementById('text1');
+		var oBtn = document.getElementById('btn1');
+		var oImg = document.getElementById('img1');
+		var oContent = document.getElementById('content');
+		var arrUrl = ['images/7.png','images/8.png'];  //存放头像图片地址
+		var num = 0;
+		//初始化
+		function imgTab(){
+			oImg.src = arrUrl[num];
+		}
+		imgTab();
+		
+		oImg.onclick = function(){
+			num++;
+			if( num == arrUrl.length){
+				num = 0;
+			}
+			imgTab();
+		};
+		
+		//设定样式时，使用html标签。
+		oBtn.onclick = function(){
+			if(oText.value == ''){
+				window.alert("写点东西再发吧");
+			}
+			else{
+				if(num == 0){   //num=0，头像为第一个图片时，文字靠右对齐
+					oContent.innerHTML = '<div class="right1">' + 
+					'<span class="right2">'+oText.value + '</span>' + '</div>'
+					+oContent.innerHTML;
+					oText.value = '';
+					}
+				else if(num == 1){  //num=0，头像为第二个图片时，文字靠左对齐
+					oContent.innerHTML = '<div class="left1">' + 
+					'<span class="left2">'+oText.value + '</span>' +  '</div>'
+					+oContent.innerHTML;
+					oText.value = '';
+					}
+				}
+		}
+	</script>
+</body>
+
+</html>
