@@ -1,0 +1,85 @@
+<html>
+<head>
+	<style>
+		ul{width:800px;}
+		li{width:100px;height:100px;list-style:none;float:left;margin-right:30px;margin-top:30px;border:1px solid #000;
+			position:relative;}
+		div{width:180px;height:80px;background:red;position:absolute; top:-20px; left:20px; display:none;}
+	</style>
+</head>
+
+<body>
+	<ul>	
+		<li>
+			<span >说明1</span>
+			<div>弹窗1</div>
+		</li>
+		<li>
+		
+			<span>说明1</span>
+			<div>弹窗1</div>
+		</li>
+		<li>
+		
+			<span>说明1</span>
+			<div>弹窗1</div>
+		</li>
+		<li>
+		
+			<span>说明1</span>
+			<div>弹窗1</div>
+		</li>
+		<li>
+			
+			<span>说明1</span>
+			<div>弹窗1</div>
+		</li>
+		<li>
+			
+			<span>说明1</span>
+			<div>弹窗1</div>
+		</li>
+		<li>
+			
+			<span>说明1</span>
+			<div>弹窗1</div>
+		</li>
+		<li>
+		
+			<span>说明1</span>
+			<div>弹窗1</div>
+		</li><li>
+			
+			<span>说明1</span>
+			<div>弹窗1</div>
+		</li><li>
+			
+			<span>说明1</span>
+			<div>弹窗1</div>
+		</li>
+		<li>
+			
+			<span>说明1</span>
+			<div>弹窗1</div>
+		</li><li>
+			
+			<span>说明1</span>
+			<div>弹窗1</div>
+		</li>
+	
+	</ul>
+	<script>
+		var aLi = document.getElementsByTagName('li');
+		for( var i=0;i<aLi.length;i++){
+			aLi[i].onmouseover = function(){
+				this.getElementsByTagName('div')[0].style.display = 'block';
+			};
+			aLi[i].onmouseout = function(){
+				this.getElementsByTagName('div')[0].style.display = 'none';
+			}
+		}
+		
+	
+	</script>
+	</body>
+</html>
