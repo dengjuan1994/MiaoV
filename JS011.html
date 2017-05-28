@@ -1,0 +1,81 @@
+<html>
+<head>
+	<style>
+		.list{width:50px; height:50px; background:red; list-style:none;}
+	</style>
+</head>
+
+<body>
+	<p>arr = [ '100px', 'abc'-6, [], -98765, 34, -2, 0, '300', , function(){alert(1);}, null, document, [], 
+		true, '200px'-30,'23.45元', 5, Number('abc'), function(){ alert(3); }, 'xyz'-90 ];</p>
+	<p>	1、找到arr里所有的数字：-98765, 34, -2, 0, 5 <br />
+	2、找到可以转成数字的：'100px', -98765, 34, -2, 0, '300', '23.45元',  5 <br />
+	3、把转成数字以后，最大值判断出来：300 <br />
+	4、把 NaN 所在的位置找出来：1 14 17  19<br />
+	</p>
+	<input type="button" value="找到arr里所有的数字" />
+	<input type="button" value="找到arr里找到可以转成数字的" />
+	<input type="button" value="把转成数字以后，最大值判断出来" />
+	<input type="button" value="把 NaN 所在的位置找出来" />
+
+
+	<script>
+		var arr = [ '100px', 'abc'-6, [], -98765, 34, -2, 0, '300', , function(){alert(1);}, null, document, [], 
+		true, '200px'-30,'23.45元', 5, Number('abc'), function(){ alert(3); }, 'xyz'-90 ];
+		
+		var aBtn = document.getElementsByTagName('input');
+		var isNumberab = [];
+		var max = 0;
+		var nanLoc = [];
+		function isNumber(){
+			for(var i=0;i<arr.length;i++){
+				if(typeof(arr[i]) === 'number' & !isNaN(arr[i])){
+					alert(arr[i]);
+				}
+			}
+		}
+
+		function isNumberable(){
+			for(var i=0;i<arr.length;i++){
+				if(parseFloat(arr[i]) || parseFloat(arr[i]) === 0){
+					isNumberab.push(arr[i]);
+				}
+			}
+		}
+		
+		function maxNumber(){
+			isNumberable();
+			max = isNumberab[0];
+			for(var i=1;i<isNumberab.length;i++){
+				if( isNumberab[i]>max){
+					max = isNumberab[i];
+				}
+			}
+		}
+		
+		function nanLocation(){
+			for(var i=0;i<arr.length;i++){
+				if(isNaN(arr[i]) & typeof(arr[i])==='number'){
+					nanLoc.push(i);
+				}
+			}
+			for(var i=0;i<nanLoc.length;i++){
+				alert(nanLoc[i]);
+			}
+		}
+
+		aBtn[0].onclick = isNumber;
+		aBtn[1].onclick = isNumberable;
+		aBtn[2].onclick = maxNumber;
+		aBtn[3].onclick = nanLocation;
+/*
+	1、找到arr里所有的数字：-98765, 34, -2, 0, 5
+	2、找到可以转成数字的：'100px', -98765, 34, -2, 0, '300', '23.45元',  5 
+	3、把转成数字以后，最大值判断出来：300
+	4、把 NaN 所在的位置找出来：1 14 17  19
+*/
+		
+	
+	</script>
+	</body>
+</html>
