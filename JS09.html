@@ -4,32 +4,49 @@
 		ul,p { padding:0; margin:0; }
 		li { list-style:none; }
 		body { background:#333; }
-		#pic { width:400px; height:500px; position:relative; margin:0 auto;
+		#pic1 {}
+		#pic2 {left:500px;}
+		.box { width:400px; height:500px; position:absolute; top:20px;
 			background:url(images/loader_ico.gif) no-repeat center #fff; }
-		#pic img { width:400px; height:500px;}
-		#pic ul{width:40px; position:absolute;top:0;right:-60px;}
-		#pic li{width:40px; height:40px;margin-bottom:4px;background:#666;}
-		#pic .active{background:#fc3;}
-		#pic p,#pic span{width:400px;height:30px;line-height:30px;color:#fff;text-align:center;position:absolute;
+		.box img { width:400px; height:500px;}
+		.box ul{width:40px; position:absolute;top:0;right:-60px;}
+		.box li{width:40px; height:40px;margin-bottom:4px;background:#666;}
+		.box .active{background:#fc3;}
+		.box p,.box span{width:400px;height:30px;line-height:30px;color:#fff;text-align:center;position:absolute;
 			background:#000;filter:alpha(opacity:70);opacity:0.7;}
-		#pic span{top:0;}
-		#pic p{bottom:0;}
+		.box span{top:0;}
+		.box p{bottom:0;}
 	</style>
 </head>
 
 <body>
-	<div id="pic">
+	<div id="pic1" class="box">
 		<img src="" />
 		<span>数值正在计算中</span>
 		<p>图片正在加载中</p>
 		<ul></ul>
 	</div>
+
+	<div id="pic2"  class="box">
+		<img src="" />
+		<span>数值正在计算中</span>
+		<p>图片正在加载中</p>
+		<ul></ul>
+	</div>	
+	
 	
 	<script>
-		var arrUrl = ['images/9.png','images/10.png','images/11.png','images/12.png'];
-		var arrText = ['图片一','图片二','图片三','图片四'];
+	var arrUrl1 = ['images/9.png','images/10.png','images/11.png','images/12.png'];
+	var arrUrl2 = ['images/13.png','images/14.jpg','images/15.jpg'];
+	var arrText1 = ['图片一','图片二','图片三','图片四'];
+	var arrText2 = ['图片一','图片二','图片三'];
+	fn('pic1',arrUrl1,arrText1,'onclick');
+	fn('pic2',arrUrl2,arrText2,'onmouseover');
+	function fn(id,arrUrl,arrText,evt){
+		
+		
 		var num = 0;
-		var oDiv = document.getElementById('pic');
+		var oDiv = document.getElementById(id);
 		var oImg = oDiv.getElementsByTagName('img')[0];
 		var oSpan = oDiv.getElementsByTagName('span')[0];
 		var oP = oDiv.getElementsByTagName('p')[0];
@@ -54,7 +71,7 @@
 		fnTab();
 		for(var i=0;i<aLi.length;i++){
 			aLi[i].index = i; //索引值
-			aLi[i].onclick = function(){
+			aLi[i][evt] = function(){  //对于不确定的属性要用[]代替.
 				num = this.index;
 				fnTab();
 				
@@ -79,6 +96,7 @@
 				*/
 			}
 		}
+	}
 		
 		
 	</script>
