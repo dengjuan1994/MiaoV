@@ -1,0 +1,115 @@
+<html>
+<head>
+	<style>
+		ul,p { padding:0; margin:0; }
+		li { list-style:none; }
+		body { background:#333; }
+		#pic { width:800px; height:600px; margin:0 auto;position:relative;
+			background:url(images/loader_ico.gif) no-repeat center #fff; }
+		#pic .imgA { width:400px; height:500px;padding-top:20px;margin-left:30px;}
+		#pic .imgB {width:300px; height:500px;margin-left:50px;padding-top:20px;}
+		#pic .active{background:#fc3;}
+		#pic p,#pic span{width:400px;height:30px;line-height:30px;color:#000;position:absolute;}
+		#pic .spanA,#pic .pA{left:50px;}
+		#pic .spanB,#pic .pB{left:500px;}
+		#pic p{bottom:30px;text-align:center;}
+		#pic span{bottom:10px;text-align:left; }
+	</style>
+</head>
+
+<body>
+	<div id="pic">
+		<input type="button" value="上一组" />
+		<input type="button" value="下一组" />
+		<br />
+		<img src="" class="imgA" />
+		<img src="" class="imgB" />
+		<span class="spanA">数值正在计算中A</span>
+		<p class="pA">图片正在加载中A</p>
+		<span class="spanB">数值正在计算中B</span>
+		<p class="pB">图片正在加载中B</p>
+		
+		
+	</div>
+	
+	<script>
+		var arrUrlA = ['images/9.png','images/10.png','images/11.png','images/12.png'];
+		var arrUrlB = ['images/13.png','images/14.jpg','images/15.jpg'];
+		var arrTextA = ['第一组第1张','第一组第2张','第一组第3张','第一组第4张'];
+		var arrTextB = ['第二组第1张','第二组第2张','第二组第3张'];
+		var numA = 0;
+		var numB = 0;
+		var oDiv = document.getElementById('pic');
+		var oImgA = oDiv.getElementsByTagName('img')[0];
+		var oImgB = oDiv.getElementsByTagName('img')[1];
+		var oSpanA = oDiv.getElementsByTagName('span')[0];
+		var oSpanB = oDiv.getElementsByTagName('span')[1];
+		var oPA = oDiv.getElementsByTagName('p')[0];
+		var oPB = oDiv.getElementsByTagName('p')[1];
+		var oBtn1 =  oDiv.getElementsByTagName('input')[0];
+		var oBtn2 =  oDiv.getElementsByTagName('input')[1];
+		
+		
+		
+		//初始化
+		function fnTab(){
+			oImgA.src = arrUrlA[numA];
+			oSpanA.innerHTML = numA+1 +'/' +arrUrlA.length;
+			oPA.innerHTML = arrTextA[numA];
+			oImgB.src = arrUrlB[numB];
+			oSpanB.innerHTML = numB+1 +'/' +arrUrlB.length;
+			oPB.innerHTML = arrTextB[numB];
+			}
+		fnTab();
+		
+		oBtn1.onclick = function(){
+			numA--;
+			numB--;
+			if(numA < 0 & numB <0){
+				numA = arrUrlA.length-1;
+				numB = arrUrlB.length-1;
+			}else if(numA <0){
+				numA = arrUrlA.length-1;
+			}else if(numB <0){
+				numB = arrUrlB.length-1;
+			}
+			fnTab();
+		};
+		
+		oBtn2.onclick = function(){
+			numA++;
+			numB++;
+			if(numA > arrUrlA.length-1 & numB >arrUrlB.length-1){
+				numA = 0;
+				numB = 0;
+			}else if(numA > arrUrlA.length-1){
+				numA = 0;
+			}else if(numB >arrUrlB.length-1){
+				numB = 0;
+			}	
+			fnTab();
+		};
+	
+		oImgA.onclick = function(){
+			numA++;
+			if(numA > arrUrlA.length-1){
+				numA = 0;}
+			fnTab();
+		};
+		
+		oImgB.onclick = function(){
+			numB++;
+			if(numB > arrUrlB.length-1){
+				numB = 0;}
+			fnTab();
+		};		
+		
+	</script>
+</body>
+</html>
+
+
+
+
+
+
