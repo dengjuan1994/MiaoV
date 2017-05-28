@@ -1,0 +1,85 @@
+<html>
+<head>
+	<style>
+		p,h2{margin:0;padding:0;}
+		li {border-bottom:1px solid gray;height:50px;line-height:50px;list-style:none;}
+		
+		img {margin-left:10px;vertical-align:center;}
+		input {margin-bottom:2px; width:200px;height:35px;margin-top:10px;}
+		
+		.hide{display:none;}
+		p {display:inline-block;}
+	
+	</style>
+</head>
+	<h2>分类名称</h2>
+	<ul id="list">
+		<li>
+		<p>妙味课堂</p>
+		<img src="images/icon3.png" />
+		<input type="text" />
+		<span >保存</span>
+		<span>取消</span>
+		</li>
+
+		<li>
+		<p>妙味远程课堂</p>
+		<img src="images/icon3.png" />
+		<input type="text" />
+		<span >保存</span>
+		<span >取消</span>
+		</li>		
+
+	</dl>
+<body>
+	<script>
+	var oUl = document.getElementById('list');
+	var aLi = document.getElementsByTagName('li');
+	
+	//初始化
+	var aImg = oUl.getElementsByTagName('img'),
+        aInput = oUl.getElementsByTagName('input'),
+        aP = oUl.getElementsByTagName('p'),
+        aSpan = oUl.getElementsByTagName('span');
+	
+	for(var i=0;i<aInput.length;i++){
+		aInput[i].value = aP[i].innerHTML;
+		aInput[i].className = 'hide';
+	}
+	
+	for(var i=0;i<aSpan.length;i++){
+		aSpan[i].className = 'hide';
+	}
+
+	//核心	
+	for(var i=0;i<aLi.length;i++){
+		fn(aLi[i]);
+	}
+
+	
+	function fn(li){
+		var oImg = li.getElementsByTagName('img')[0];
+		var oText = li.getElementsByTagName('input')[0];
+		var oSpan1 = li.getElementsByTagName('span')[0];
+		var oSpan2 = li.getElementsByTagName('span')[1];
+		var oP =  li.getElementsByTagName('p')[0];
+		
+		oImg.onclick = function(){
+			oP.className = oImg.className = 'hide';
+			oText.className = oSpan1.className = oSpan2.className = '';
+		};
+		
+		oSpan1.onclick = function(){
+			oP.innerHTML = oText.value;
+			oP.className = oImg.className = '';
+			oText.className = oSpan1.className = oSpan2.className = 'hide';
+		};
+		
+		oSpan2.onclick = function(){
+			oP.className = oImg.className = '';
+			oText.className = oSpan1.className = oSpan2.className = 'hide';
+		};
+	}
+	</script>
+</body>
+</html>
