@@ -1,0 +1,77 @@
+<html>
+<head>
+<style>
+	p{margin:0;padding:0;border:1px solid gray; height:30px;line-height:30px;width:300px;margin:40px auto 0;padding-left:30px;}
+</style>
+</head>
+
+<body>
+	<p>我的评价:
+	<span id="score">
+		<img src="images/nst.gif" />
+		<img src="images/nst.gif" />
+		<img src="images/nst.gif" />
+		<img src="images/nst.gif" />
+		<img src="images/nst.gif" />
+	</span>
+	<span id="comment"></span>
+	</p>
+</body>
+<script>
+	var oSpan1 = document.getElementById('score');
+	var oSpan2 = document.getElementById('comment');
+	var aImg = oSpan1.getElementsByTagName('img');
+	var arrText = ['极差','很差','还行','不错','推荐'];
+	var arrUrl = ['images/nst.gif','images/nsg.gif','images/sth.gif','images/st.gif'];
+	var arrLastImg = [];
+	var arrLastText = '';
+	
+	function score(index,imgSrc){
+		for(var i=0;i<=index;i++){
+			aImg[i].src = imgSrc;
+		}
+	
+	}
+	
+	for(var i=0;i<aImg.length;i++){
+		aImg[i].index = i;
+		aImg[i].onmouseover = function(){
+			for(var i=0;i<aImg.length;i++){   //将上一次的图片序列、和文字记录下来，主要是为了在鼠标移出选择框时，将所有的图片还原为初始状态
+				arrLastImg[i] = aImg[i].src;
+			}
+			arrLastText = oSpan2.innerHTML;
+			
+			score(aImg.length-1,arrUrl[0]);   //鼠标滑过时，将所有的图片还原为初始状态，然后根据鼠标选择的点再更改图片
+			if(this.index < 2){
+				score(this.index,arrUrl[1]);
+			}else{
+				score(this.index,arrUrl[2]);
+			}
+			
+			oSpan2.innerHTML = arrText[this.index]; //根据鼠标悬停的点更改文字
+			
+		};
+		
+		aImg[i].onmouseout = function(){ 
+			for(var i=0;i<aImg.length;i++){
+				aImg[i].src = arrLastImg[i];
+			}
+			oSpan2.innerHTML = arrLastText;
+		};		
+
+		aImg[i].onclick = function(){    //鼠标点击时。将所有的图片还原为初始状态，然后根据鼠标选择的点再更改图片
+			score(aImg.length-1,arrUrl[0]);
+			if(this.index < 2){
+				score(this.index,arrUrl[1]);
+			}else{
+				score(this.index,arrUrl[3]);
+			}
+			
+			for(var i=0;i<aImg.length;i++){  //存入此时的选择，主要是为了在鼠标移出时，点击后的选择不会发生改变。
+				arrLastImg[i] = aImg[i].src;
+			}
+			arrLastText = oSpan2.innerHTML;
+		};
+	}
+</script>
+</html>
