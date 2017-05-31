@@ -1,0 +1,88 @@
+<html>
+<head>
+	<style>
+		ul,p {margin:0;padding:0;}
+		li {list-style:none;}
+		div {margin:40px auto 0;border:1px solid gray;width:300px;height:230px;}
+		#music {}
+		#music li{height:30px;line-height:30px;border-bottom:1px solid gray;}
+		#music input {margin-left:5px;}
+		#music p {display:inline-block;text-align:left;width:200px;}
+		#music span{text-align:right;}
+	</style>
+
+</head>
+
+<body>
+	<div>
+		<ul id="music">
+			<li><input type="checkbox" /><p>私奔</p><span>梁博</span></li>
+			<li><input type="checkbox" /><p>北京北京</p><span>梁博</span></li>
+			<li><input type="checkbox" /><p>我爱你中国</p><span>梁博</span></li>
+			<li><input type="checkbox" /><p>花火</p><span>梁博</span></li>
+			<li><input type="checkbox" /><p>易燃易爆炸</p><span>梁博</span></li>
+			<li><input type="checkbox" /><p>成都</p><span>梁博</span></li>
+		</ul>
+		<input type="checkbox" id="check" /><span>全选</span>
+	</div>
+	<script>
+		var oUl = document.getElementById('music');
+		var aLi = oUl.getElementsByTagName('li');
+		var aInp = oUl.getElementsByTagName('input');
+		var oBtn = document.getElementById('check');
+		var arrColor = [];
+		var count = 0;
+		
+		for(var i=0;i<aLi.length;i++){
+			if(i%2 == 0){
+				aLi[i].style.background = 'blue';
+			}else{
+				aLi[i].style.background = 'yellow';
+			}
+			arrColor[i] = aLi[i].style.background;
+		}
+		
+		oBtn.onclick = function(){
+			if(oBtn.checked){
+				for(var i=0;i<aInp.length;i++){
+					aInp[i].checked = true;
+				}
+				for(var i=0;i<aLi.length;i++){
+					aLi[i].style.background = 'gray';
+				}
+			count = 6;
+			}else{
+				for(var i=0;i<aInp.length;i++){
+					aInp[i].checked = false;
+				}			
+				for(var i=0;i<aLi.length;i++){
+					aLi[i].style.background = arrColor[i];;
+				}
+			count = 0;
+			}
+		};
+		
+		for(var i=0;i<aInp.length;i++){
+			aInp[i].index = i;
+			aInp[i].onclick = function(){
+				num = this.index;
+				if(aInp[num].checked){
+					aLi[num].style.background = 'gray';
+					count ++;
+				}else{
+					aLi[num].style.background = arrColor[num];
+					count --;
+				}
+				if(count == 6){
+					oBtn.checked = true;
+				}else{
+					oBtn.checked = false;
+				}
+			}
+		}
+
+
+
+	</script>
+</body>
+</html>
