@@ -34,12 +34,19 @@ window.onload = function (){
 	///////////////////////////////////////////////////////////////
 	
 	var timer = null;
-	timer = setInterval(function(){
-		num++;
-		num%=arrText.length;
-		fnTab();
-	},1000);
-	
+	function autoPlay(){ 
+		timer = setInterval(function(){
+			num++;
+			num%=arrText.length;
+			fnTab();
+		},1000);
+	}
+	//autoPlay();
+	setTimeout(autoPlay,2000);  //2s之后再开始自动播放
+	oDiv.onmouseover = function(){
+		clearInterval(timer);
+	};
+	oDiv.onmouseout = autoPlay;
 	
 	///////////////////////////////////////////////////////////////
 	for( var i=0; i<arrUrl.length; i++ ){
