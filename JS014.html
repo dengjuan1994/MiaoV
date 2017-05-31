@@ -66,9 +66,15 @@
 	for(var i=0;i<aA.length-1;i++){
 		aA[i].index = i;
 	
+	//鼠标滑郭主导航链接上时
 		aA[i].onmouseover = function(){
 			num = this.index;
+			for(var i=0;i<aUl.length;i++){
+				aUl[i].style.display = 'none';
+			}
+			clearTimeout(timer);
 			aUl[num].style.display = 'block';
+			
 		}
 		aA[i].onmouseout = function(){
 			num = this.index;
