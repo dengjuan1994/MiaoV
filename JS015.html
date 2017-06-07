@@ -1,0 +1,83 @@
+<html>
+<head>
+	<style>
+		#div1 {width:100px;height:100px;background:red;position:absolute;left:50px;top:50px;}
+	</style>
+</head>
+<body>
+	<input type="button" value="走" id="btn1" />
+	<div id="div1"></div>
+
+
+	<script>
+		var str ='';
+		var len = 20;
+		var aDiv = document.getElementsByTagName('div');
+		var timer = null;
+		var num = 0;
+		for(var i=0;i<len;i++){
+			str += '<div style="width:50px;height:50px;background:red;position:absolute;top:10px;left:'+i*60+'px;"></div>';
+		}
+	
+		document.body.innerHTML = str;
+		document.onOff = true;
+		document.onclick = function(){
+			if(document.onOff){
+				clearInterval(timer);
+				timer = setInterval(function(){
+					doMove(aDiv[num],'top',2,500);
+					num ++;
+					
+					if(num === len){
+						clearInterval(timer);
+						document.onOff = false;
+						num = 0;
+					}
+				},100);
+			}else{
+				clearInterval(timer);
+				timer = setInterval(function(){
+					doMove(aDiv[num],'top',2,10);
+					num ++;
+					if(num === len){
+						clearInterval(timer);
+						document.onOff = true;
+						num = 0;
+					}
+				},100);
+			}
+		};
+		
+		
+		 //函数封装
+            function doMove(obj,attr,dir,target,endFn){
+
+                dir = parseInt(getStyle(obj,attr)) < target ? dir:-dir;  //当前的长度小于目标，那么就是正向移动；否则就是反向移动，为负。
+
+                clearInterval(obj.timer);
+                obj.timer = setInterval(function(){
+                    var speed = parseInt(getStyle(obj,attr))+dir;
+                    if(speed > target && dir > 0 || speed < target && dir < 0){
+                        speed = target;
+                    }
+
+                    obj.style[attr] = speed +'px';
+                    if(speed == target){
+                        clearInterval(obj.timer);
+                        /*
+                        if( endFn ){
+                            endFn(); //解决有时候不穿函数参数的问题
+                        }
+                        */
+                        endFn && endFn();
+                    }
+                },30);
+            }
+
+        function getStyle(obj,attr){
+            return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+        }
+	</script>
+</body>
+</html>
+
