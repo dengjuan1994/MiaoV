@@ -1,0 +1,85 @@
+<html>
+<head>
+	<style>	
+		#div1 {width:550px;border:1px solid #ccc;margin:240px auto 0;position:relative;height:50px;background:#31F7EF;}
+		span {width:50px;height:50px;line-height:50px;font-size:20px;position:absolute;opacity:1;}
+	</style>
+</head>
+<body>
+	<div id="div1">
+		<span>+1</span>
+		<span>+1</span>
+		<span>+1</span>
+		<span>+1</span>
+		<span>+1</span>
+		<span>+1</span>
+		<span>+1</span>
+		<span>+1</span>
+		<span>+1</span>
+		<span>+1</span>
+		<span>+1</span>
+		
+	</div>
+	
+	<script>
+		var oDiv = document.getElementById('div1');
+		var aSpan = oDiv.getElementsByTagName('span');
+		var num = 0;
+		
+		for(var i=0;i<aSpan.length;i++){
+			aSpan[i].style.left = i*50 +'px';		
+		}
+		
+		oDiv.onclick = function(){
+			clearInterval(oDiv.timer);
+			oDiv.timer = setInterval(function(){
+				doMove(aSpan[num],'top',5,-200);
+				doOpacity(aSpan[num],0.03,0);
+				num++;
+				if(num === aSpan.length){
+					clearInterval(oDiv.timer);
+				}
+			},100);
+		}
+	
+		 function doMove(obj,attr,dir,target,endFn){
+
+                dir = parseInt(getStyle(obj,attr)) < target ? dir:-dir;  //当前的长度小于目标，那么就是正向移动；否则就是反向移动，为负。
+
+                clearInterval(obj.timer);
+                obj.timer = setInterval(function(){
+                    var speed = parseInt(getStyle(obj,attr))+dir;
+                    if(speed > target && dir > 0 || speed < target && dir < 0){
+                        speed = target;
+                    }
+
+                    obj.style[attr] = speed +'px';
+                    if(speed == target){
+                        clearInterval(obj.timer);
+                        /*
+                        if( endFn ){
+                            endFn(); //解决有时候不穿函数参数的问题
+                        }
+                        */
+                        endFn && endFn();
+                    }
+                },30);
+            }
+		    function getStyle(obj,attr){
+				return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+			}
+		function doOpacity(obj,opSpeed,opTarget){ 
+			clearInterval(obj.opTimer);
+			var opDir = getStyle(obj,'opacity');
+			obj.opTimer = setInterval(function(){
+				obj.style.opacity = getStyle(obj,'opacity') - opSpeed;
+				
+				if(opTarget === opDir){
+					 clearInterval(obj.timer);
+				}
+			},30);
+		}
+	</script>
+</body>
+
+</html>
