@@ -1,0 +1,55 @@
+<html>
+<head>
+	<style>
+		img {width:100px;height:100px;position:absolute;top:100px;}
+	</style>
+	<script src="JS015-doMove.js" ></script>
+	<script>
+		window.onload = function(){
+			aImg = document.getElementsByTagName('img');
+			for(var i=0;i<aImg.length;i++){
+				aImg[i].style.left = 80 + i*110 +'px';
+				
+				aImg[i].onmouseover = function(){
+					shake(this,'left');
+				
+				};
+				
+			}
+		
+		
+		};
+		
+		 function shake(obj,attr,endFn){
+			if( obj.shaked ) { return; }   //解决隐患。如果obj.shaked = true,也即是本次shake没有结束的时候，直接返回空。
+			obj.shaked = true;
+            var arr = []; //20,-20,18,-18.....0,0
+            var num = 0;
+
+            var pos; //当前位置
+            for(var i=20;i>=0;i-=2){
+                arr.push(i,-i);
+            }
+            pos = parseInt(getStyle(obj,attr)); //隐患
+            clearInterval(obj.shakeTimer);
+            obj.shakeTimer = setInterval(function(){
+            obj.style[attr] = pos + arr[num] +'px';
+            num ++;
+            if(num === arr.length){
+				clearInterval(obj.shakeTimer);
+				endFn && endFn();
+				obj.shaked = false; 
+            }
+                },100);
+			}
+
+	</script>
+</head>
+<body>
+	<img src="images/13.png" />
+	<img src="images/14.jpg" />
+	<img src="images/15.jpg" />
+	<img src="images/16.jpg" />
+	<img src="images/1.png" />
+</body>
+</html>
