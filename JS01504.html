@@ -1,0 +1,89 @@
+<html>
+<head>
+	<style>
+		p,body {padding:0;margin:0;}
+		#container {position:relative;width:600px;height:400px;left:300px;top:100px;overflow:hidden;}
+		#img1 {width:600px;height:400px;position:absolute;}
+		#div1 {width:600px;height:100px;position:absolute;left:0px;top:400px;background:#ccc;
+		filter:alpha(opacity=80);opacity:0.8;}
+		#div1 h2 {font-size:20px;}
+		#div1 p {font-size:16px;}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<img id="img1" src="images/14.jpg" />
+		<div id="div1">
+			<h2>哈哈哈哈哈哈哈</h2>
+			<p>window对象是DOM所有对象的父对象。parseInt() 会从字符串第一个字符开始扫描，遇到非数字字符则结束扫描。</p>
+		</div>
+	</div>
+	<script>
+		var oImg = document.getElementById('img1');
+		var oDiv = document.getElementById('div1');
+		var aH2 = oDiv.getElementsByTagName('h2')[0];
+		var aP = oDiv.getElementsByTagName('p')[0];
+		var arrUrl = ["images/14.jpg","images/15.jpg","images/16.jpg","images/13.png"];
+		var arrTextH2 = ["哈哈哈哈哈哈哈","哈哈哈哈哈哈哈2222","哈哈哈哈哈哈哈333","哈哈哈哈哈哈哈444"];
+		var arrTextP = ["window对象是DOM所有对象的父对象。parseInt() 会从字符串第一个字符开始扫描，遇到非数字字符则结束扫描。",
+						"2222222222222222222222222222222222222222222222222222222222222222222222222222222",
+						"33333333333333333333333333333333333333333333333333333333333333333333333333333",
+						"44444444444444444444444444444444444444444444444444444444444"
+						];
+						
+		var timer = null;
+		var num = 0;
+		
+		clearInterval(timer);
+		timer = setInterval(function(){
+			doMove(oDiv,'top',60,300,function(){
+				setTimeout(function(){
+					doMove(oDiv,'top',60,400);
+				},1500);
+			});
+			
+	
+			oImg.src = arrUrl[num];
+			aH2.innerHTML = arrTextH2[num];
+			aP.innerHTML = arrTextP[num];
+			num ++;
+			
+		    if(num === 3){
+				num = 0;
+			}
+		},3000);
+		
+	    function doMove(obj,attr,dir,target,endFn){
+
+                dir = parseInt(getStyle(obj,attr)) < target ? dir:-dir;  //当前的长度小于目标，那么就是正向移动；否则就是反向移动，为负。
+
+                clearInterval(obj.timer);
+                obj.timer = setInterval(function(){
+                    var speed = parseInt(getStyle(obj,attr))+dir;
+                    if(speed > target && dir > 0 || speed < target && dir < 0){
+                        speed = target;
+                    }
+
+                    obj.style[attr] = speed +'px';
+                    if(speed == target){
+                        clearInterval(obj.timer);
+                        /*
+                        if( endFn ){
+                            endFn(); //解决有时候不穿函数参数的问题
+                        }
+                        */
+                        endFn && endFn();
+                    }
+                },300);
+            }
+
+        function getStyle(obj,attr){
+            return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+        }
+
+		
+		
+	</script>
+</body>
+
+</html>
