@@ -1,0 +1,179 @@
+<html>
+<head>
+	<style>
+		h6,ul{paddding:0;margin:0}
+		img {border:none;}
+		li {list-style:none;}
+		input {border:none;}
+		h6{margin-bottom:20px;}
+		#list {border-top:1px solid gray;width:850px;}
+		#list li {height:260px;;display:inline-block;width:200px;border-right:1px solid gray;position:relative;opacity:1;
+		background:url(images/down.png) 0 0 no-repeat;}
+		.box {background:#fff;width:200px;height:260px;inline-block;position:relative;}
+		.c1 {width:140px;}
+		.c2 {width:180px;}
+		#list input{height:30px;}
+		#list img{width:100px;height:100px;vertical-align:center;padding-left:20px;}
+		#table1 {width:800px;background: #DED6E7;text-align: center;
+			font-size: 14px;
+			color: #522121;
+			font-weight: bold;
+			margin-top: 30px;
+			border-collapse: collapse;}
+		#table1 img{width:100px;height:100px;vertical-align:center;}
+		
+	</style>
+</head>
+<body>
+	<h6>限购时间</h6>
+	<ul id="list"> 
+		<li>
+			<div class="box">
+			<input type="text" class="c1" value="June 9, 2017 17:00:0" /> 
+			<input type="button" value="确定" /><br>
+			<input type="text" class="c1 c2" value="剩余00天00时00分00秒" /> <br />
+			<img src="images/14.jpg" />
+			<p>疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
+			<p>抢购价：￥<span>599.00</span></p>
+			</div>
+		</li>
+		<li>
+			<div class="box">
+			<input type="text" class="c1" value="June 9, 2017 17:00:0" /> 
+			<input type="button" value="确定" /><br>
+			<input type="text" class="c1 c2" value="剩余00天00时00分00秒"/> <br />
+			<img src="images/15.jpg" />
+			<p>疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
+			<p>抢购价：￥<span>5699.00</span></p>
+			</div>
+		</li>
+		<li>
+			<div class="box">
+			<input type="text" class="c1" value="June 9, 2017 17:00:0"/> 
+			<input type="button" value="确定" /><br>
+			<input type="text" class="c1 c2" value="剩余00天00时00分00秒" /> <br />
+			<img src="images/16.jpg" />
+			<p>疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
+			<p>抢购价：￥<span>799.00</span></p>
+			</div>
+		</li>
+		<li>
+			<div class="box">
+			<input type="text" class="c1" value="June 9, 2017 16:57:0" /> 
+			<input type="button" value="确定" /><br>
+			<input type="text" class="c1 c2" value="剩余00天00时00分00秒" /> <br />
+			<img src="images/1.png" />
+			<p>疯狂599，美的爆款隐藏式面板下拉门微波炉</p>
+			<p>抢购价：￥<span>899.00</span></p>
+			</div>
+		</li>
+	</ul>
+	<table id="table1">
+		<thead>
+			<tr><th>商品名称</th><th>商品价钱</th></tr>
+		</thead>
+	</table>
+	<p>总价：<span id="total">0</span>元</p>
+
+
+<script>	
+	var oUl = document.getElementById('list');
+	var aLi = oUl.getElementsByTagName('li');
+	var aBox = oUl.getElementsByTagName('div');
+	var iNew = 0;
+	var iNow = 0;
+	var t = 0;
+	var str = '';
+	
+	var timerDiv = null;
+	var oTable = document.getElementById('table1');
+	for(var i=0;i<aBox.length;i++){
+		fnTime(aBox[i]);
+	}
+	
+	//获取倒计时
+	function fnTime(box){
+		var aInp = box.getElementsByTagName('input');
+		aInp[1].onclick = function(){
+			clearInterval(aInp[2].timer);
+			aInp[2].timer = setInterval(function(){
+				iNew = new Date(aInp[0].value);
+				iNow = new Date();
+				t = Math.floor((iNew-iNow)/1000);
+				if(t>=0){
+					str = '剩余'+ Math.floor(t/86400) +'天' + Math.floor(t%86400/3600)+'时'+Math.floor(t%86400%3600/60)+'分'+t%60+'秒';
+					aInp[2].value = str;
+					if(t === 0){
+						 shake(box,'left',function(){
+							doMove(box,'top',30,100,0.01,function(){
+								addList(box);
+							});
+						 });
+						 
+					}
+				}else{
+					clearInterval(aInp[2].timer);}
+				
+			},1000);
+		}
+	}
+
+	
+        function shake(obj,attr,endFn){
+            var arr = []; //10,-10,8,-8.....0,0
+            var num = 0;
+            var pos; //当前位置
+            for(var i=10;i>=0;i-=2){
+                arr.push(i,-i);
+            }
+            pos = parseInt(getStyle(obj,attr));
+            clearInterval(obj.shakeTimer);
+            obj.shakeTimer = setInterval(function(){
+            obj.style[attr] = pos + arr[num] +'px';
+            num ++;
+            if(num === arr.length){
+				clearInterval(obj.shakeTimer);
+				endFn && endFn();
+            }
+            },100);
+        }
+		
+		  function doMove(obj,attr,dir,target,opac,endFn){
+
+                dir = parseInt(getStyle(obj,attr)) < target ? dir:-dir;  //当前的长度小于目标，那么就是正向移动；否则就是反向移动，为负。
+
+                clearInterval(obj.timer);
+                obj.timer = setInterval(function(){
+                    var speed = parseInt(getStyle(obj,attr))+dir;
+                    if(speed > target && dir > 0 || speed < target && dir < 0){
+                        speed = target;
+                    }
+					var opacSpeed = parseInt(getStyle(obj,'opacity')) - opac;
+                    obj.style[attr] = speed +'px';
+					obj.style.opacity = opacSpeed;
+                    if(speed === target ){
+                        clearInterval(obj.timer);
+                        endFn && endFn();
+                    }
+                },100);
+				
+				
+            }
+
+        function getStyle(obj,attr){
+            return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+        }
+
+		function addList(obj){
+			var aP = obj.getElementsByTagName('p');
+			var oTotal = document.getElementById('total');
+			var oImg = obj.getElementsByTagName('img')[0];
+			var oPrice = aP[1].getElementsByTagName('span')[0];
+			var price = parseFloat(oPrice.innerHTML);
+			oTable.innerHTML += '<tr><td>'+aP[0].innerHTML+'</td><td>'+oPrice.innerHTML+'</td><td><img src="'+oImg.src+'" /></td></tr>';
+			oTotal.innerHTML = parseFloat(oTotal.innerHTML)+price;
+			
+		}
+</script>
+</body>
+</html>
