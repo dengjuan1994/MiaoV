@@ -1,0 +1,47 @@
+<html>
+<head>
+</head>
+<body>
+	<p id="p1"></p>
+	<img src="img16/0.jpg" />
+	<img src="img16/0.jpg" />
+	<img src="img16/colon.jpg" />
+	<img src="img16/0.jpg" />
+	<img src="img16/0.jpg" />
+	<img src="img16/colon.jpg" />
+	<img src="img16/0.jpg" />
+	<img src="img16/0.jpg" />
+
+<script>
+	var oP = document.getElementById('p1');
+	var aImg = document.getElementsByTagName('img');
+	
+	getTime();
+	setInterval(getTime,1000);
+	
+	function getTime(){
+		var myTime = new Date();
+		var iHours = myTime.getHours();
+		var iMinutes = myTime.getMinutes();
+		var iSeconds = myTime.getSeconds();
+		var str = toTwo(iHours) +':'+toTwo(iMinutes)+':'+toTwo(iSeconds);
+		oP.innerHTML = str;
+		
+		for(var i=0;i<aImg.length;i++){
+			if(str.charAt(i) === ':'){
+				i++;
+			}
+			aImg[i].src = 'img16/'+str.charAt(i)+'.jpg';
+			//aImg[1].src = 'img16/'+str.charAt(1)+'.jpg';
+			//aImg[3].src = 'img16/'+str.charAt(3)+'.jpg';
+		}
+	}
+	
+	function toTwo(n){
+		if(n<10) return '0'+n;
+		else return ''+n;
+	
+	}
+</script>
+</body>
+</html>
